@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Order Confirmation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #2575fc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .thank-you-text {
+            color: white;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .confirmation-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 0 auto 40px;
+            max-width: 600px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .confirmation-title {
+            color: #2575fc;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .order-id {
+            color: #333;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #2575fc;
+            letter-spacing: 1px;
+        }
+        
+        .confirmation-message {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .detail-item {
+            flex: 1;
+        }
+        
+        .detail-label {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .detail-value {
+            color: #2575fc;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .actions {
+            margin-top: 40px;
+        }
+        
+        .btn-print {
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+        }
+        
+        .btn-print:hover {
+            background-color: #1c65e0;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.4);
+        }
+        
+        /* For mobile responsiveness */
+        @media (max-width: 768px) {
+            .thank-you-text {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .confirmation-card {
+                padding: 30px 20px;
+            }
+            
+            .order-id {
+                font-size: 2rem;
+            }
+            
+            .details {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .thank-you-text {
+                font-size: 2.5rem;
+            }
+            
+            .order-id {
+                font-size: 1.8rem;
+            }
+            
+            .confirmation-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="thank-you-text">Thank You!</h1>
+        <div class="subtitle">Your order has been confirmed</div>
+        
+        <div class="confirmation-card">
+            <div class="confirmation-title">Order Confirmation</div>
+            <div id="orderId" class="order-id">Loading Order ID...</div>
+            
+            <div class="confirmation-message">
+                Your tickets have been successfully purchased. A confirmation email has been sent to your registered email address.
+            </div>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <div class="detail-label">Order Date</div>
+                    <div id="orderDate" class="detail-value">December 28, 2025 at 11:23 PM</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Order Total</div>
+                    <div id="orderTotal" class="detail-value">$313.95</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value" style="color: #4CAF50;">Confirmed</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button class="btn-print" onclick="printConfirmation()">
+                Print Confirmation
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // Function to generate a realistic order ID
+        function generateOrderId() {
+            const prefix = 'TICKET';
+            const timestamp = Date.now().toString().slice(-6);
+            const random = Math.random().toString(36).substr(2, 6).toUpperCase();
+            return `${prefix}-${timestamp}-${random}`;
+        }
+        
+        // Function to format date like "December 28, 2025 at 11:23 PM"
+        function formatDate(date) {
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric'
+            };
+            const dateStr = date.toLocaleDateString('en-US', options);
+            
+            // Get time in 12-hour format
+            let hours = date.getHours();
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // 0 should be 12
+            
+            return `${dateStr} at ${hours}:${minutes} ${ampm}`;
+        }
+        
+        // Function to load order details
+        // Function to load order details
+function loadOrderDetails() {
+    const orderId = sessionStorage.getItem('orderId');
+    const total = sessionStorage.getItem('orderTotal');
+
+    if (!orderId || !total) {
+        document.getElementById('orderId').textContent = 'Order not found';
+        document.getElementById('orderTotal').textContent = '$0.00';
+        return;
+    }
+
+    // Show correct values
+    document.getElementById('orderId').textContent = orderId;
+    document.getElementById('orderTotal').textContent = `$${parseFloat(total).toFixed(2)}`;
+
+    // Set date
+    const now = new Date();
+    document.getElementById('orderDate').textContent =
+        now.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+    // Clear storage so refresh won't reuse old data
+    sessionStorage.removeItem('orderId');
+    sessionStorage.removeItem('orderTotal');
+}
+
+        function printConfirmation() {
+            const printContent = `
+                <html>
+                <head>
+                    <title>Order Confirmation - ${document.getElementById('orderId').textContent}</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 30px; 
+                            max-width: 600px;
+                            margin: 0 auto;
+                        }
+                        .header { 
+                            text-align: center; 
+                            margin-bottom: 30px;
+                            padding-bottom: 20px;
+                            border-bottom: 2px solid #2575fc;
+                        }
+                        .order-id { 
+                            font-size: 24px; 
+                            font-weight: bold; 
+                            margin: 20px 0;
+                            color: #2575fc;
+                        }
+                        .details { 
+                            margin-top: 30px;
+                            border-top: 1px solid #eee;
+                            padding-top: 20px;
+                        }
+                        .detail-row { 
+                            margin-bottom: 15px; 
+                            display: flex;
+                            justify-content: space-between;
+                        }
+                        .label { 
+                            font-weight: bold;
+                            color: #666;
+                        }
+                        .thankyou { 
+                            margin-top: 40px; 
+                            padding-top: 20px;
+                            border-top: 1px solid #eee;
+                            text-align: center;
+                            font-style: italic;
+                            color: #666;
+                        }
+                        .logo {
+                            color: #2575fc;
+                            font-size: 24px;
+                            font-weight: bold;
+                            margin-bottom: 10px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <div class="logo">TICKET SYSTEM</div>
+                        <h1>Order Confirmation</h1>
+                    </div>
+                    <div class="order-id">
+                        Order ID: ${document.getElementById('orderId').textContent}
+                    </div>
+                    <div style="margin: 20px 0; color: #666;">
+                        Your tickets have been successfully purchased. A confirmation email has been sent to your registered email address.
+                    </div>
+                    <div class="details">
+                        <div class="detail-row">
+                            <span class="label">Order Date:</span> 
+                            <span>${document.getElementById('orderDate').textContent}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Order Total:</span> 
+                            <span>${document.getElementById('orderTotal').textContent}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Status:</span> 
+                            <span style="color: #4CAF50; font-weight: bold;">Confirmed</span>
+                        </div>
+                    </div>
+                    <div class="thankyou">
+                        Thank you for your purchase!<br>
+                        Your tickets will be emailed to you shortly.
+                    </div>
+                    <div style="margin-top: 40px; font-size: 12px; color: #999; text-align: center;">
+                        This is your official confirmation receipt.
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 250);
+        }
+       async function releaseQueueAndCleanup() {
+    const purchaseCompleted = sessionStorage.getItem('purchaseCompleted');
+    const userId = sessionStorage.getItem('userId');
+
+    // 🚨 CRITICAL GUARD
+    if (purchaseCompleted !== 'true' || !userId) {
+        console.warn('Queue release blocked: purchase not completed');
+        return;
+    }
+
+    try {
+        await fetch(`${API_BASE}/leaveQueue`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId })
+        });
+
+        console.log('Queue released ONLY after confirmed purchase');
+    } catch (err) {
+        console.error('Queue release failed:', err);
+    }
+
+    // Clean up AFTER release
+    sessionStorage.clear();
+    localStorage.removeItem('ticketCart');
+}
+
+
+        // Load order details when page loads
+       window.addEventListener('DOMContentLoaded', () => {
+    loadOrderDetails();
+    releaseQueueAndCleanup();
+});
+
+    </script>
+</body>
+</html>

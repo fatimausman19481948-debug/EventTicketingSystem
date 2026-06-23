@@ -1,0 +1,9 @@
+# AWS Configuration
+AWS_REGION=us-east-1
+
+# DynamoDB Tables
+CART_TABLE=CartTable
+CART_HISTORY_TABLE=CartTable2
+ORDERS_TABLE=OrdersTable
+QUEUE_TABLE=QueueTable
+TICKET_INVENTORY_TABLE=TicketInventory

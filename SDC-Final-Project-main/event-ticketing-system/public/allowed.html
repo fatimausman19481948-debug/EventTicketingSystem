@@ -1,0 +1,264 @@
+<!-- allowed.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Granted - Tech Summit 2023</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- A. Header -->
+        <div class="page" id="allowed-page">
+            <div class="header">
+                <div class="access-banner">
+                    <i class="fas fa-check-circle"></i>
+                    <h1>ACCESS GRANTED</h1>
+                </div>
+                <p>You now have exclusive access to purchase tickets for</p>
+                <h2>Tech Summit 2023</h2>
+                
+                <!-- Countdown Timer -->
+                <div class="countdown-container">
+                    <div class="countdown-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Time Remaining to Complete Purchase</h3>
+                    </div>
+                    <div class="countdown" id="countdown">05:00</div>
+                    <p class="countdown-warning">Your spot will be released when time expires</p>
+                </div>
+            </div>
+            
+            <!-- B. Ticket Selection UI -->
+            <div class="ticket-selection-section">
+                <h2><i class="fas fa-ticket-alt"></i> Select Your Tickets</h2>
+                <p class="section-subtitle">Choose from our available ticket options below</p>
+                
+                <div class="tickets-grid">
+                    <!-- General Admission Ticket -->
+                    <div class="ticket-card" id="general-ticket">
+                        <div class="ticket-header">
+                            <h3>General Admission</h3>
+                            <span class="ticket-badge">Most Popular</span>
+                        </div>
+                        
+                        <div class="ticket-description">
+                            <p><i class="fas fa-check"></i> Access to all keynote speeches</p>
+                            <p><i class="fas fa-check"></i> Exhibition hall access</p>
+                            <p><i class="fas fa-check"></i> Networking events</p>
+                            <p><i class="fas fa-check"></i> Conference swag bag</p>
+                            <p><i class="fas fa-times"></i> <span class="text-muted">VIP lounge access</span></p>
+                        </div>
+                        
+                        <div class="ticket-price">
+                            <span class="price">$299</span>
+                            <span class="price-note">per ticket</span>
+                        </div>
+                        
+                        <div class="availability">
+                            <i class="fas fa-chair"></i>
+                            <span id="general-availability">142 tickets remaining</span>
+                        </div>
+                        
+                        <div class="quantity-selector">
+             <button class="qty-btn minus" data-ticket="general" aria-label="Decrease quantity"></button>
+
+                            <input type="number" id="general-qty" class="qty-input" value="1" min="1" max="4" readonly>
+                            <button class="qty-btn plus" data-ticket="general" aria-label="Increase quantity"></button>
+                            <span class="max-note">Max 4 per order</span>
+                        </div>
+                        
+                        <button class="btn btn-add-cart" data-ticket="general">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- VIP Ticket -->
+                    <div class="ticket-card vip" id="vip-ticket">
+                        <div class="ticket-header">
+                            <h3>VIP Pass</h3>
+                            <span class="ticket-badge vip-badge">Premium</span>
+                        </div>
+                        
+                        <div class="ticket-description">
+                            <p><i class="fas fa-check"></i> <strong>All General Admission benefits</strong></p>
+                            <p><i class="fas fa-check"></i> VIP lounge access</p>
+                            <p><i class="fas fa-check"></i> Premium seating</p>
+                            <p><i class="fas fa-check"></i> Exclusive dinner with speakers</p>
+                            <p><i class="fas fa-check"></i> Priority check-in</p>
+                            <p><i class="fas fa-check"></i> Complimentary conference merchandise</p>
+                        </div>
+                        
+                        <div class="ticket-price">
+                            <span class="price">$599</span>
+                            <span class="price-note">per ticket</span>
+                        </div>
+                        
+                        <div class="availability">
+                            <i class="fas fa-chair"></i>
+                            <span id="vip-availability">48 tickets remaining</span>
+                        </div>
+                        
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus" data-ticket="vip">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="vip-qty" class="qty-input" value="1" min="1" max="2" readonly>
+                            <button class="qty-btn plus" data-ticket="vip">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <span class="max-note">Max 2 per order</span>
+                        </div>
+                        
+                        <button class="btn btn-add-cart" data-ticket="vip">
+                            <i class="fas fa-crown"></i> Add to Cart
+                        </button>
+                    </div>
+                    
+                    <!-- Student Ticket -->
+                    <div class="ticket-card" id="student-ticket">
+                        <div class="ticket-header">
+                            <h3>Student Pass</h3>
+                            <span class="ticket-badge student-badge">Discounted</span>
+                        </div>
+                        
+                        <div class="ticket-description">
+                            <p><i class="fas fa-check"></i> Access to all keynote speeches</p>
+                            <p><i class="fas fa-check"></i> Exhibition hall access</p>
+                            <p><i class="fas fa-check"></i> Student networking events</p>
+                            <p><i class="fas fa-times"></i> <span class="text-muted">Conference swag bag</span></p>
+                            <p><i class="fas fa-times"></i> <span class="text-muted">VIP lounge access</span></p>
+                            <p class="student-note"><i class="fas fa-id-card"></i> Valid student ID required at check-in</p>
+                        </div>
+                        
+                        <div class="ticket-price">
+                            <span class="price">$149</span>
+                            <span class="price-note">per ticket</span>
+                        </div>
+                        
+                        <div class="availability">
+                            <i class="fas fa-chair"></i>
+                            <span id="student-availability">89 tickets remaining</span>
+                        </div>
+                        
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus" data-ticket="student">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="student-qty" class="qty-input" value="1" min="1" max="2" readonly>
+                            <button class="qty-btn plus" data-ticket="student">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <span class="max-note">Max 2 per order</span>
+                        </div>
+                        
+                        <button class="btn btn-add-cart" data-ticket="student">
+                            <i class="fas fa-graduation-cap"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+                <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+                
+                <div class="cart-empty" id="empty-cart-message">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>Your cart is empty. Add tickets to get started!</p>
+                </div>
+                
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be dynamically added here -->
+                </div>
+                
+                <div class="cart-total" id="cart-total-section" style="display: none;">
+                    <div class="total-line">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Service Fee:</span>
+                        <span id="cart-fee">$0.00</span>
+                    </div>
+                    <div class="total-line total">
+                        <span>Total:</span>
+                        <span id="cart-total">$0.00</span>
+                    </div>
+                    
+                    <div class="cart-actions">
+                        <button class="btn btn-secondary" id="clear-cart">
+                            <i class="fas fa-trash"></i> Clear Cart
+                        </button>
+                        <button class="btn btn-success" id="proceed-checkout">
+                            <i class="fas fa-lock"></i> Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- C. Purchase / Checkout -->
+            <div class="checkout-section">
+                <h2><i class="fas fa-credit-card"></i> Checkout</h2>
+                <p class="section-subtitle">Complete your purchase to secure your tickets</p>
+                
+                <div class="checkout-actions">
+                    <button class="btn btn-purchase" id="complete-purchase">
+                        <i class="fas fa-shopping-bag"></i> Complete Purchase
+                    </button>
+                    
+                    <p class="purchase-note">
+                        <i class="fas fa-shield-alt"></i> Your payment is secured with 256-bit SSL encryption
+                    </p>
+                </div>
+            </div>
+            
+            <!-- D. Footer / Notes -->
+            <div class="footer notes">
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <h4>Important Notice</h4>
+                        <p>If you leave this page or refresh your browser, your reserved spot may be lost and you'll need to rejoin the queue.</p>
+                    </div>
+                </div>
+                
+                <div class="support-info">
+                    <h4><i class="fas fa-headset"></i> Need Help?</h4>
+                    <p>Contact our support team: <a href="mailto:support@techsummit2023.com">support@techsummit2023.com</a></p>
+                    <p>Phone: +1 (555) 123-4567 (9am-6pm EST)</p>
+                </div>
+                
+                <div class="event-terms">
+                    <p><small>All ticket sales are final. No refunds or exchanges. Event dates and speakers are subject to change.</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>Purchase Complete!</h2>
+            </div>
+            <div class="modal-body">
+                <p>Thank you for your purchase! Your tickets have been reserved successfully.</p>
+                <div class="ticket-confirmation">
+                    <p><strong>Confirmation #:</strong> <span id="confirmation-number">TS2023-XXXXXX</span></p>
+                    <p><strong>Tickets will be emailed to:</strong> The email associated with your purchase</p>
+                </div>
+                <p>Please check your email for confirmation and further instructions.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="allowed-script.js"></script>
+</body>
+</html>

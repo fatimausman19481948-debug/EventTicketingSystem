@@ -1,0 +1,22 @@
+DynamoDB Tables Used
+
+1. CartTable
+   - Partition Key: userId (String)
+   - Purpose: Stores active user cart
+
+2. CartTable2
+   - Partition Key: userId (String)
+   - Sort Key: createdAt (Number)
+   - Purpose: Stores cart history
+
+3. OrdersTable
+   - Partition Key: orderId (String)
+   - Purpose: Stores completed orders
+
+4. QueueTable
+   - Partition Key: userId (String)
+   - Purpose: Manages user queue
+
+5. TicketInventory
+   - Partition Key: ticketType (String)
+   - Purpose: Stores available tickets
